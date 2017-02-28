@@ -7,7 +7,7 @@ This package will connect to the JSON API of Buckaroo, if you prefer SOAP over J
 This package uses [Composer](https://getcomposer.org/) as PHP dependency manager, you need to run the following command within the root of your project.
 
 ```
-composer require sebudesign/buckaroo-php-json
+composer require sebudesign/buckaroo-json
 ```
 
 ### Usage
