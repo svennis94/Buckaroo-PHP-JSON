@@ -1,3 +1,4 @@
-/.idea
+/.idea/
+/tmp/
 composer.phar
 /vendor/

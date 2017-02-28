@@ -27,6 +27,9 @@ class Foo
         // Replace your website-key and secret-key with your keys
         $transaction = new Transaction('website-key', 'secret-key');
         
+        // Create a test transaction
+        $transaction->putInTestMode();
+        
         // Set the currency of the transaction
         $transaction->setCurrency('EUR');
         
