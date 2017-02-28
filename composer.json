@@ -1,5 +1,5 @@
 {
-    "name": "sebudesign/buckaroo-php-json",
+    "name": "sebudesign/buckaroo-json",
     "description": "Connect to the JSON API from Buckaroo",
     "keywords": ["PHP", "Buckaroo", "JSON"],
     "type": "library",
