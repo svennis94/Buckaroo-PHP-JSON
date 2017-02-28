@@ -1,67 +1,28 @@
 <?php namespace SeBuDesign\BuckarooJson;
 
-use GuzzleHttp\Client;
-
-class Transaction
+class Transaction extends RequestBase
 {
     /**
-     * The Buckaroo website key
+     * The currency to perform the payment in
      *
-     * @var string
-     */
-    protected $sWebsiteKey;
-
-    /**
-     * The Buckaroo secret key
-     *
-     * @var string
-     */
-    protected $sSecretKey;
-
-    /**
-     * Is this a test transaction?
-     *
-     * @var boolean
-     */
-    protected $bTesting = false;
-
-    /**
-     * The Buckaroo endpoint
-     *
-     * @var string
-     */
-    protected $sEndpoint = 'https://checkout.buckaroo.nl/json/';
-
-    /**
-     * The HTTP Client
-     *
-     * @var Client
-     */
-    protected $oHttpClient;
-
-    /**
-     * Transaction constructor.
-     *
-     * @param string $sWebsiteKey The Buckaroo Website Key
-     * @param string $sSecretKey  The Buckaroo Secret Key
-     */
-    public function __construct($sWebsiteKey, $sSecretKey)
-    {
-        $this->sWebsiteKey = $sWebsiteKey;
-        $this->sSecretKey = $sSecretKey;
-        $this->oHttpClient = new Client();
-    }
-
-    /**
-     * Set the attributes for a test Transaction
+     * @param string $sCurrency The currency
      *
      * @return $this
      */
-    public function putInTestMode()
+    public function setCurrency($sCurrency)
     {
-        $this->bTesting = true;
-        $this->sEndpoint = 'https://testcheckout.buckaroo.nl/json/';
+        $this->aData['Currency'] = $sCurrency;
 
         return $this;
+    }
+
+    /**
+     * Get the selected currency
+     *
+     * @return string|boolean
+     */
+    public function getCurrency()
+    {
+        return (isset($this->aData['Currency']) ? $this->aData['Currency'] : false);
     }
 }

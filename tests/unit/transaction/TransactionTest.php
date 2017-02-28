@@ -72,13 +72,14 @@ class TransactionTest extends TestCase
         );
     }
 
-    /**
-     * Get a new transaction
-     *
-     * @return Transaction
-     */
-    protected function getTransaction()
+    /** @test */
+    public function it_should_have_an_empty_body()
     {
-        return new Transaction('website-key', 'secret-key');
+        $oTransaction = $this->getTransaction();
+
+        $this->assertEquals(
+            [],
+            $this->accessProtectedProperty($oTransaction, 'aData')
+        );
     }
 }

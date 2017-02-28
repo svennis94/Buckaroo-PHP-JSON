@@ -1,5 +1,7 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
+use SeBuDesign\BuckarooJson\Transaction;
+
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -18,5 +20,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $property->setAccessible(true);
 
         return $property->getValue($object);
+    }
+
+    /**
+     * Get a new transaction
+     *
+     * @return Transaction
+     */
+    protected function getTransaction()
+    {
+        return new Transaction('website-key', 'secret-key');
     }
 }
