@@ -27,6 +27,9 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setClientIP(IpAddress $oIpAddress)
  * @method IpAddress|boolean getClientIP()
+ *
+ * @method $this setClientUserAgent(string $sUserAgent)
+ * @method string|boolean getClientUserAgent()
  */
 class Transaction extends RequestBase
 {
