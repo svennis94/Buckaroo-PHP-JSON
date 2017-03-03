@@ -1,10 +1,25 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
+use Faker\Generator;
 use SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Transaction;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * The facker object
+     *
+     * @var Generator
+     */
+    protected $faker;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->faker = \Faker\Factory::create();
+    }
+
     /**
      * Set a protected property public to test it's value
      *
