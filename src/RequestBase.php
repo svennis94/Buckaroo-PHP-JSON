@@ -71,4 +71,33 @@ class RequestBase
 
         return $this;
     }
+
+    /**
+     * Dynamically set and get values
+     *
+     * @param string $sName      The name of the called function
+     * @param array  $aArguments The arguments passed to the function
+     *
+     * @return $this|mixed
+     */
+    public function __call($sName, $aArguments)
+    {
+        // Check if the method exists in the class
+        if (!method_exists($this, $sName)) {
+            if (strpos($sName, 'set') === 0 && count($aArguments) == 1) {
+                // With a method that starts with set, set the data
+
+                $sName = str_replace('set', '', $sName);
+                $this->aData[ $sName ] = $aArguments[ 0 ];
+
+                return $this;
+            } elseif (strpos($sName, 'get') === 0) {
+                // With a method that starts with get, get the data
+
+                $sName = str_replace('get', '', $sName);
+
+                return ( isset( $this->aData[ $sName ] ) ? $this->aData[ $sName ] : false );
+            }
+        }
+    }
 }
