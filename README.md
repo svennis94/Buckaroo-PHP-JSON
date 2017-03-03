@@ -18,6 +18,7 @@ composer require sebudesign/buckaroo-json
 require 'vendor/autoload.php';
 
 use SeBuDesign\BuckarooJson\Transaction;
+use \SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Service;
 
 class Foo
@@ -47,7 +48,10 @@ class Foo
         $transaction->setDescription('Your transaction description');
         
         // Set the client IP
-        $transaction->setClientIP('127.0.0.1');
+        $oIpAddress = new IpAddress();
+        $oIpAddress->setAddress('127.0.0.1');
+       
+        $transaction->setClientIP($oIpAddress);
         
         // Set the client user agent
         $transaction->setClientUserAgent('google-chrome');
