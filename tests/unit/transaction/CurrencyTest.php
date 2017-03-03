@@ -9,7 +9,7 @@ class CurrencyTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
-        $sCurrency = 'EUR';
+        $sCurrency = $this->faker->currencyCode;
 
         $this->assertInstanceOf(
             Transaction::class,
