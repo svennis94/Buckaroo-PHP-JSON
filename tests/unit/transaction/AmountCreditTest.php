@@ -18,7 +18,7 @@ class AmountCreditTest extends TestCase
         );
         $this->assertEquals(
             0.01,
-            $this->accessProtectedProperty($oTransaction, 'aData')['AmountCredit']
+            $oTransaction->oData->AmountCredit
         );
     }
 

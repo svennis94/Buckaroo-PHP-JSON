@@ -18,7 +18,7 @@ class OrderTest extends TestCase
         );
         $this->assertEquals(
             0.01,
-            $this->accessProtectedProperty($oTransaction, 'aData')['Order']
+            $oTransaction->oData->Order
         );
     }
 

@@ -18,7 +18,7 @@ class CurrencyTest extends TestCase
         );
         $this->assertEquals(
             'EUR',
-            $this->accessProtectedProperty($oTransaction, 'aData')['Currency']
+            $oTransaction->oData->Currency
         );
     }
 

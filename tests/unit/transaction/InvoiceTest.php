@@ -18,7 +18,7 @@ class InvoiceTest extends TestCase
         );
         $this->assertEquals(
             0.01,
-            $this->accessProtectedProperty($oTransaction, 'aData')['Invoice']
+            $oTransaction->oData->Invoice
         );
     }
 

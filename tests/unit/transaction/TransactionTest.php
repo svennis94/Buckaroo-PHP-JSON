@@ -77,9 +77,8 @@ class TransactionTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
-        $this->assertEquals(
-            [],
-            $this->accessProtectedProperty($oTransaction, 'aData')
+        $this->assertFalse(
+            isset($oTransaction->oData)
         );
     }
 }

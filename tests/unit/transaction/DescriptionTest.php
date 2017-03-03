@@ -18,7 +18,7 @@ class DescriptionTest extends TestCase
         );
         $this->assertEquals(
             0.01,
-            $this->accessProtectedProperty($oTransaction, 'aData')['Description']
+            $oTransaction->oData->Description
         );
     }
 
