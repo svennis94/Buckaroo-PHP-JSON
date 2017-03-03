@@ -8,7 +8,7 @@ use SeBuDesign\BuckarooJson\Transaction;
 class DescriptionTest extends TestCase
 {
     /** @test */
-    public function it_should_set_the_amount_credit()
+    public function it_should_set_the_description()
     {
         $oTransaction = $this->getTransaction();
 
@@ -23,7 +23,7 @@ class DescriptionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_get_the_amount_credit()
+    public function it_should_get_the_description()
     {
         $oTransaction = $this->getTransaction();
 
@@ -38,7 +38,7 @@ class DescriptionTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_false_when_the_amount_credit_is_not_set()
+    public function it_should_return_false_when_the_description_is_not_set()
     {
         $oTransaction = $this->getTransaction();
 

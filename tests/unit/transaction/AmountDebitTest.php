@@ -8,7 +8,7 @@ use SeBuDesign\BuckarooJson\Transaction;
 class AmountDebitTest extends TestCase
 {
     /** @test */
-    public function it_should_set_the_amount_credit()
+    public function it_should_set_the_amount_debit()
     {
         $oTransaction = $this->getTransaction();
 
@@ -23,7 +23,7 @@ class AmountDebitTest extends TestCase
     }
 
     /** @test */
-    public function it_should_get_the_amount_credit()
+    public function it_should_get_the_amount_debit()
     {
         $oTransaction = $this->getTransaction();
 
@@ -38,7 +38,7 @@ class AmountDebitTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_false_when_the_amount_credit_is_not_set()
+    public function it_should_return_false_when_the_amount_debit_is_not_set()
     {
         $oTransaction = $this->getTransaction();
 
