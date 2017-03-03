@@ -42,6 +42,12 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setReturnURLReject(string $sUrl)
  * @method string|boolean getReturnURLReject()
+ *
+ * @method $this setOriginalTransactionKey(string $sOriginalTransactionKey)
+ * @method string|boolean getOriginalTransactionKey()
+ *
+ * @method $this setStartRecurrent(boolean $bStartRecurrent)
+ * @method boolean getStartRecurrent()
  */
 class Transaction extends RequestBase
 {
