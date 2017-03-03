@@ -49,8 +49,14 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  * @method $this setStartRecurrent(boolean $bStartRecurrent)
  * @method boolean getStartRecurrent()
  *
- * @method $this setContinueOnIncomplete(string $iContinueOnIncomplete)
- * @method string|boolean getContinueOnIncomplete()
+ * @method $this setContinueOnIncomplete(integer $iContinueOnIncomplete)
+ * @method integer|boolean getContinueOnIncomplete()
+ *
+ * @method $this setServicesSelectableByClient(string $sServicesSelectableByClient)
+ * @method string|boolean getServicesSelectableByClient()
+ *
+ * @method $this setServicesExcludedForClient(string $sServicesSelectableByClient)
+ * @method string|boolean getServicesExcludedForClient()
  */
 class Transaction extends RequestBase
 {
