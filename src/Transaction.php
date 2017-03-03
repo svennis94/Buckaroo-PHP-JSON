@@ -1,5 +1,7 @@
 <?php namespace SeBuDesign\BuckarooJson;
 
+use \SeBuDesign\BuckarooJson\Parts\IpAddress;
+
 /**
  * Class Transaction
  *
@@ -22,6 +24,9 @@
  *
  * @method $this setDescription(string $sDescription)
  * @method string|boolean getDescription()
+ *
+ * @method $this setClientIP(IpAddress $oIpAddress)
+ * @method IpAddress|boolean getClientIP()
  */
 class Transaction extends RequestBase
 {

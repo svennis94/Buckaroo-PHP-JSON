@@ -1,5 +1,6 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
+use SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Transaction;
 
 class TestCase extends \PHPUnit\Framework\TestCase
@@ -30,5 +31,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function getTransaction()
     {
         return new Transaction('website-key', 'secret-key');
+    }
+
+    /**
+     * Get a new Ip Address
+     *
+     * @return IpAddress
+     */
+    protected function getIpAddress()
+    {
+        return new IpAddress();
     }
 }
