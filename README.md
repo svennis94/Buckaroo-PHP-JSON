@@ -47,7 +47,7 @@ class Foo
         $transaction->setDescription('Your transaction description');
         
         // Set the client IP
-        $transaction->setClientIp('127.0.0.1');
+        $transaction->setClientIP('127.0.0.1');
         
         // Set the client user agent
         $transaction->setClientUserAgent('google-chrome');
