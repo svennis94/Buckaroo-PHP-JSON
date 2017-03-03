@@ -12,27 +12,18 @@ class AmountDebitTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
+        $fAmount = $this->faker->randomFloat(2);
+
         $this->assertInstanceOf(
             Transaction::class,
-            $oTransaction->setAmountDebit(0.01)
+            $oTransaction->setAmountDebit($fAmount)
         );
         $this->assertEquals(
-            0.01,
+            $fAmount,
             $oTransaction->oData->AmountDebit
         );
-    }
-
-    /** @test */
-    public function it_should_get_the_amount_debit()
-    {
-        $oTransaction = $this->getTransaction();
-
-        $this->assertInstanceOf(
-            Transaction::class,
-            $oTransaction->setAmountDebit(0.01)
-        );
         $this->assertEquals(
-            0.01,
+            $fAmount,
             $oTransaction->getAmountDebit()
         );
     }

@@ -19,32 +19,23 @@ class IpAddressTest extends TestCase
     }
 
     /** @test */
-    public function it_should_set_the_ip_address()
+    public function it_should_set_the_ipv4_address_and_type()
     {
         $oIpAddress = $this->getIpAddress();
 
+        $sIpAddress = $this->faker->ipv4;
+
         $this->assertInstanceOf(
             IpAddress::class,
-            $oIpAddress->setAddress('127.0.0.1')
+            $oIpAddress->setAddress($sIpAddress)
         );
         $this->assertEquals(
-            '127.0.0.1',
+            $sIpAddress,
             $oIpAddress->oData->Address
         );
         $this->assertEquals(
-            '127.0.0.1',
+            $sIpAddress,
             $oIpAddress->getAddress()
-        );
-    }
-
-    /** @test */
-    public function it_should_set_the_ip_address_type_ipv4()
-    {
-        $oIpAddress = $this->getIpAddress();
-
-        $this->assertInstanceOf(
-            IpAddress::class,
-            $oIpAddress->setType(IpAddress::IPv4)
         );
         $this->assertEquals(
             IpAddress::IPv4,
@@ -57,13 +48,23 @@ class IpAddressTest extends TestCase
     }
 
     /** @test */
-    public function it_should_set_the_ip_address_type_ipv6()
+    public function it_should_set_the_ipv6_address_and_type()
     {
         $oIpAddress = $this->getIpAddress();
 
+        $sIpAddress = $this->faker->ipv6;
+
         $this->assertInstanceOf(
             IpAddress::class,
-            $oIpAddress->setType(IpAddress::IPv6)
+            $oIpAddress->setAddress($sIpAddress)
+        );
+        $this->assertEquals(
+            $sIpAddress,
+            $oIpAddress->oData->Address
+        );
+        $this->assertEquals(
+            $sIpAddress,
+            $oIpAddress->getAddress()
         );
         $this->assertEquals(
             IpAddress::IPv6,
@@ -80,9 +81,9 @@ class IpAddressTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
+        $sIpAddress = $this->faker->ipv4;
         $oIpAddress = $this->getIpAddress();
-        $oIpAddress->setAddress('127.0.0.1');
-        $oIpAddress->setType(IpAddress::IPv4);
+        $oIpAddress->setAddress($sIpAddress);
 
         $this->assertInstanceOf(
             Transaction::class,
@@ -93,7 +94,7 @@ class IpAddressTest extends TestCase
             $oTransaction->getClientIP()
         );
         $this->assertEquals(
-            '127.0.0.1',
+            $sIpAddress,
             $oTransaction->getClientIP()->getAddress()
         );
         $this->assertEquals(

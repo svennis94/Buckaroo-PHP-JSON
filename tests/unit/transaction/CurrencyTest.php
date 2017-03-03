@@ -12,27 +12,18 @@ class CurrencyTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
+        $sCurrency = 'EUR';
+
         $this->assertInstanceOf(
             Transaction::class,
-            $oTransaction->setCurrency('EUR')
+            $oTransaction->setCurrency($sCurrency)
         );
         $this->assertEquals(
-            'EUR',
+            $sCurrency,
             $oTransaction->oData->Currency
         );
-    }
-
-    /** @test */
-    public function it_should_get_the_currency()
-    {
-        $oTransaction = $this->getTransaction();
-
-        $this->assertInstanceOf(
-            Transaction::class,
-            $oTransaction->setCurrency('EUR')
-        );
         $this->assertEquals(
-            'EUR',
+            $sCurrency,
             $oTransaction->getCurrency()
         );
     }

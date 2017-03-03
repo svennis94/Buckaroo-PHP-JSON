@@ -12,27 +12,18 @@ class InvoiceTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
+        $sInvoice = $this->faker->uuid;
+
         $this->assertInstanceOf(
             Transaction::class,
-            $oTransaction->setInvoice(0.01)
+            $oTransaction->setInvoice($sInvoice)
         );
         $this->assertEquals(
-            0.01,
+            $sInvoice,
             $oTransaction->oData->Invoice
         );
-    }
-
-    /** @test */
-    public function it_should_get_the_invoice()
-    {
-        $oTransaction = $this->getTransaction();
-
-        $this->assertInstanceOf(
-            Transaction::class,
-            $oTransaction->setInvoice(0.01)
-        );
         $this->assertEquals(
-            0.01,
+            $sInvoice,
             $oTransaction->getInvoice()
         );
     }

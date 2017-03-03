@@ -12,27 +12,18 @@ class DescriptionTest extends TestCase
     {
         $oTransaction = $this->getTransaction();
 
+        $sDescription = $this->faker->text(32);
+
         $this->assertInstanceOf(
             Transaction::class,
-            $oTransaction->setDescription(0.01)
+            $oTransaction->setDescription($sDescription)
         );
         $this->assertEquals(
-            0.01,
+            $sDescription,
             $oTransaction->oData->Description
         );
-    }
-
-    /** @test */
-    public function it_should_get_the_description()
-    {
-        $oTransaction = $this->getTransaction();
-
-        $this->assertInstanceOf(
-            Transaction::class,
-            $oTransaction->setDescription(0.01)
-        );
         $this->assertEquals(
-            0.01,
+            $sDescription,
             $oTransaction->getDescription()
         );
     }
