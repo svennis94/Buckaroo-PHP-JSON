@@ -3,9 +3,6 @@
 use SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Transaction;
 
-/**
- * @covers \SeBuDesign\BuckarooJson\Parts\IpAddress
- */
 class IpAddressTest extends TestCase
 {
     public function it_should_be_an_instance_of_ip_address()

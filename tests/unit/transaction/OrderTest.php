@@ -2,9 +2,6 @@
 
 use SeBuDesign\BuckarooJson\Transaction;
 
-/**
- * @covers \SeBuDesign\BuckarooJson\Transaction
- */
 class OrderTest extends TestCase
 {
     /** @test */

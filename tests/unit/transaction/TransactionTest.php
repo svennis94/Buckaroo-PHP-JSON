@@ -3,9 +3,6 @@
 use GuzzleHttp\Client;
 use SeBuDesign\BuckarooJson\Transaction;
 
-/**
- * @covers \SeBuDesign\BuckarooJson\Transaction
- */
 class TransactionTest extends TestCase
 {
     /** @test */

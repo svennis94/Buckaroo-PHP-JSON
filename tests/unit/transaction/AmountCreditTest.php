@@ -2,9 +2,6 @@
 
 use SeBuDesign\BuckarooJson\Transaction;
 
-/**
- * @covers \SeBuDesign\BuckarooJson\Transaction
- */
 class AmountCreditTest extends TestCase
 {
     /** @test */
