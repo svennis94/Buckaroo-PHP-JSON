@@ -12,9 +12,7 @@ trait Data
      */
     public function __call($sName, $aArguments)
     {
-        if (!isset($this->oData)) {
-            $this->oData = new \SeBuDesign\BuckarooJson\Parts\Data();
-        }
+        $this->ensureDataObject();
 
         // Check if the method exists in the class
         if (!method_exists($this, $sName)) {
@@ -32,6 +30,16 @@ trait Data
 
                 return (isset($this->oData->{$sName}) ? $this->oData->{$sName} : false);
             }
+        }
+    }
+
+    /**
+     * Create the data object if it does not exists
+     */
+    protected function ensureDataObject()
+    {
+        if (!isset($this->oData)) {
+            $this->oData = new \SeBuDesign\BuckarooJson\Parts\Data();
         }
     }
 }
