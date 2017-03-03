@@ -57,6 +57,9 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setServicesExcludedForClient(string $sServicesSelectableByClient)
  * @method string|boolean getServicesExcludedForClient()
+ *
+ * @method $this setPushURL(string $sPushURL)
+ * @method string|boolean getPushURL()
  */
 class Transaction extends RequestBase
 {
