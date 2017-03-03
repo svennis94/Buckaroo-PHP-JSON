@@ -48,6 +48,9 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setStartRecurrent(boolean $bStartRecurrent)
  * @method boolean getStartRecurrent()
+ *
+ * @method $this setContinueOnIncomplete(string $iContinueOnIncomplete)
+ * @method string|boolean getContinueOnIncomplete()
  */
 class Transaction extends RequestBase
 {
