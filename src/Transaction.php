@@ -30,6 +30,18 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setClientUserAgent(string $sUserAgent)
  * @method string|boolean getClientUserAgent()
+ *
+ * @method $this setReturnURL(string $sUrl)
+ * @method string|boolean getReturnURL()
+ *
+ * @method $this setReturnURLCancel(string $sUrl)
+ * @method string|boolean getReturnURLCancel()
+ *
+ * @method $this setReturnURLError(string $sUrl)
+ * @method string|boolean getReturnURLError()
+ *
+ * @method $this setReturnURLReject(string $sUrl)
+ * @method string|boolean getReturnURLReject()
  */
 class Transaction extends RequestBase
 {
