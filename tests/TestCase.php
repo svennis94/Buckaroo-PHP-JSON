@@ -2,6 +2,7 @@
 
 use Faker\Generator;
 use SeBuDesign\BuckarooJson\Parts\IpAddress;
+use SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
 use SeBuDesign\BuckarooJson\Transaction;
 
 class TestCase extends \PHPUnit\Framework\TestCase
@@ -56,5 +57,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function getIpAddress()
     {
         return new IpAddress();
+    }
+
+    /**
+     * Get a new Original Transaction
+     *
+     * @return OriginalTransactionReference
+     */
+    protected function getOriginalTransactionReference()
+    {
+        return new OriginalTransactionReference();
     }
 }

@@ -1,6 +1,7 @@
 <?php namespace SeBuDesign\BuckarooJson;
 
 use \SeBuDesign\BuckarooJson\Parts\IpAddress;
+use \SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
 
 /**
  * Class Transaction
@@ -60,6 +61,9 @@ use \SeBuDesign\BuckarooJson\Parts\IpAddress;
  *
  * @method $this setPushURL(string $sPushURL)
  * @method string|boolean getPushURL()
+ *
+ * @method $this setOriginalTransactionReference(OriginalTransactionReference $oOriginalTransactionReference)
+ * @method OriginalTransactionReference|boolean getOriginalTransactionReference()
  */
 class Transaction extends RequestBase
 {
