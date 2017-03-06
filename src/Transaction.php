@@ -185,8 +185,8 @@ class Transaction extends RequestBase
             $this->oData->{$sType}->{$sElement} = [];
         }
 
-        if ($this->hasCustomParameter($sName)) {
-            $this->removeCustomParameter($sName);
+        if ($this->getParameter($sType, $sElement, $sName) !== false) {
+            $this->removeParameter($sType, $sElement, $sName);
         }
 
         $oCustomParameter = new CustomParameter();
