@@ -127,7 +127,7 @@ class CustomParameterTest extends TestCase
     }
 
     /** @test */
-    public function it_should_override_a_custom_parameter_when_its_the_same_name()
+    public function it_should_override_a_custom_parameter_when_it_has_the_same_name()
     {
         $oTransaction = $this->getTransaction();
 
