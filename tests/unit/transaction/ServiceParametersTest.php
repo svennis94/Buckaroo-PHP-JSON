@@ -1,7 +1,6 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
 use SeBuDesign\BuckarooJson\Parts\Service;
-use SeBuDesign\BuckarooJson\Transaction;
 
 class ServiceParametersTest extends TestCase
 {
