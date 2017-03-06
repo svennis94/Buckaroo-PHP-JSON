@@ -64,6 +64,9 @@ use SeBuDesign\BuckarooJson\Parts\Service;
  * @method $this setPushURL( string $sPushURL )
  * @method string|boolean getPushURL()
  *
+ * @method $this setPushURLFailure( string $sPushURLFailure )
+ * @method string|boolean getPushURLFailure()
+ *
  * @method $this setOriginalTransactionReference( OriginalTransactionReference $oOriginalTransactionReference )
  * @method OriginalTransactionReference|boolean getOriginalTransactionReference()
  */
