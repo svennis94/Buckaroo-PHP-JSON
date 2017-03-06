@@ -1,6 +1,5 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
-use SeBuDesign\BuckarooJson\Parts\CustomParameter;
 use SeBuDesign\BuckarooJson\Parts\Service;
 use SeBuDesign\BuckarooJson\Transaction;
 
