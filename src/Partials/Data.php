@@ -42,4 +42,25 @@ trait Data
             $this->oData = new \SeBuDesign\BuckarooJson\Parts\Data();
         }
     }
+
+    /**
+     * Generate the JSON from the data
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $sBody = get_object_vars($this->oData);
+        foreach ($sBody as $sName => $mValue) {
+            if (is_object($mValue)) {
+                if (method_exists($this, "toString{$sName}Modifier")) {
+                    $sBody[ $sName ] = $this->{"toString{$sName}Modifier"}();
+                } else {
+                    $sBody[ $sName ] = json_decode((string) $mValue, true);
+                }
+            }
+        }
+
+        return json_encode($sBody);
+    }
 }

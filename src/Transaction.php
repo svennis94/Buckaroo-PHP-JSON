@@ -310,4 +310,68 @@ class Transaction extends RequestBase
 
         return $this;
     }
+
+    /**
+     * Services to string modifier
+     *
+     * @return array
+     */
+    public function toStringServicesModifier()
+    {
+        $aServices = [
+            'ServiceList' => []
+        ];
+
+        foreach ($this->oData->Services->ServiceList as $oService)
+        {
+            $aService = get_object_vars($oService->oData);
+
+            $aService['Parameters'] = [];
+            foreach($oService->oData->Parameters as $oParameter) {
+                $aService['Parameters'][] = get_object_vars($oParameter->oData);
+            }
+
+            $aServices['ServiceList'][] = $aService;
+        }
+
+        return $aServices;
+    }
+
+    /**
+     * CustomParameters to string modifier
+     *
+     * @return array
+     */
+    public function toStringCustomParametersModifier()
+    {
+        $aCustomParameters = [
+            'List' => []
+        ];
+
+        foreach ($this->oData->CustomParameters->List as $oCustomParameter)
+        {
+            $aCustomParameters['List'][] = get_object_vars($oCustomParameter->oData);
+        }
+
+        return $aCustomParameters;
+    }
+
+    /**
+     * AdditionalParameters to string modifier
+     *
+     * @return array
+     */
+    public function toStringAdditionalParametersModifier()
+    {
+        $aAdditionalParameters = [
+            'AdditionalParameter' => []
+        ];
+
+        foreach ($this->oData->AdditionalParameters->AdditionalParameter as $oAdditionalParameter)
+        {
+            $aAdditionalParameters['AdditionalParameter'][] = get_object_vars($oAdditionalParameter->oData);
+        }
+
+        return $aAdditionalParameters;
+    }
 }
