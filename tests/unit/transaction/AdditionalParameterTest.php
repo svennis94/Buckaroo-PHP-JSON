@@ -153,10 +153,6 @@ class AdditionalParameterTest extends TestCase
             $sName,
             $oTransaction->getAdditionalParameter($sName)->getName()
         );
-        $this->assertEquals(
-            $mValue,
-            $oTransaction->getAdditionalParameter($sName)->getValue()
-        );
 
         $mValue = $this->faker->randomElement(
             [
@@ -178,10 +174,6 @@ class AdditionalParameterTest extends TestCase
         $this->assertEquals(
             $sName,
             $oTransaction->getAdditionalParameter($sName)->getName()
-        );
-        $this->assertEquals(
-            $mValue,
-            $oTransaction->getAdditionalParameter($sName)->getValue()
         );
     }
 
