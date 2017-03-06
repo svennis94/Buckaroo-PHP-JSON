@@ -3,6 +3,7 @@
 use SeBuDesign\BuckarooJson\Parts\CustomParameter;
 use \SeBuDesign\BuckarooJson\Parts\IpAddress;
 use \SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
+use SeBuDesign\BuckarooJson\Parts\Service;
 
 /**
  * Class Transaction
@@ -167,6 +168,54 @@ class Transaction extends RequestBase
     }
 
     /**
+     * Adds a service object
+     *
+     * @param Service $oService The Service to add
+     *
+     * @return $this
+     */
+    public function addService($oService)
+    {
+        return $this->addParameter('Services', 'ServiceList', $oService);
+    }
+
+    /**
+     * Gets a specific service object
+     *
+     * @param string $sName The name of the service object to get
+     *
+     * @return boolean|Service
+     */
+    public function getService($sName)
+    {
+        return $this->getParameter('Services', 'ServiceList', $sName);
+    }
+
+    /**
+     * Checks if a service object exists
+     *
+     * @param string $sName The name of the additional parameter to check
+     *
+     * @return boolean
+     */
+    public function hasService($sName)
+    {
+        return ( $this->getParameter('Services', 'ServiceList', $sName) !== false ? true : false );
+    }
+
+    /**
+     * Removes a specific service object
+     *
+     * @param string $sName The name of the service object to remove
+     *
+     * @return $this|boolean
+     */
+    public function removeService($sName)
+    {
+        return $this->removeParameter('Services', 'ServiceList', $sName);
+    }
+
+    /**
      * Add a custom or additional paramter
      *
      * @param string $sType    The type of parameter to add
@@ -176,7 +225,7 @@ class Transaction extends RequestBase
      *
      * @return $this
      */
-    protected function addParameter($sType, $sElement, $sName, $mValue)
+    protected function addParameter($sType, $sElement, $sName, $mValue = null)
     {
         $this->ensureDataObject();
 
@@ -185,13 +234,18 @@ class Transaction extends RequestBase
             $this->oData->{$sType}->{$sElement} = [];
         }
 
+        if (is_string($sName)) {
+            $oCustomParameter = new CustomParameter();
+            $oCustomParameter->setName($sName);
+            $oCustomParameter->setValue($mValue);
+        } else {
+            $oCustomParameter = $sName;
+            $sName = $oCustomParameter->getName();
+        }
+
         if ($this->getParameter($sType, $sElement, $sName) !== false) {
             $this->removeParameter($sType, $sElement, $sName);
         }
-
-        $oCustomParameter = new CustomParameter();
-        $oCustomParameter->setName($sName);
-        $oCustomParameter->setValue($mValue);
 
         $this->oData->{$sType}->{$sElement}[] = $oCustomParameter;
 
@@ -205,7 +259,7 @@ class Transaction extends RequestBase
      * @param string $sElement The element to get the parameter from
      * @param string $sName    The name of the parameter to get
      *
-     * @return boolean|CustomParameter
+     * @return boolean|CustomParameter|Service
      */
     protected function getParameter($sType, $sElement, $sName)
     {
@@ -236,7 +290,7 @@ class Transaction extends RequestBase
      *
      * @return $this|boolean
      */
-    public function removeParameter($sType, $sElement, $sName)
+    protected function removeParameter($sType, $sElement, $sName)
     {
         $this->ensureDataObject();
 
