@@ -288,14 +288,14 @@ class Transaction extends RequestBase
      * @param string $sElement The element to remove the parameter from
      * @param string $sName The name of the parameter to remove
      *
-     * @return $this|boolean
+     * @return $this
      */
     protected function removeParameter($sType, $sElement, $sName)
     {
         $this->ensureDataObject();
 
         if (!isset( $this->oData->{$sType} ) || empty( $this->oData->{$sType}->{$sElement} )) {
-            return false;
+            return $this;
         }
 
         foreach ($this->oData->{$sType}->{$sElement} as $iIndex => $oCustomParameter) {
