@@ -10,7 +10,7 @@ use SeBuDesign\BuckarooJson\Partials\Data;
  * @method string|boolean getAddress()
  *
  * @method $this setType(integer $iType)
- * @method string|boolean getType()
+ * @method integer|boolean getType()
  */
 class IpAddress
 {
