@@ -9,61 +9,61 @@ use \SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
  *
  * @package SeBuDesign\BuckarooJson
  *
- * @method $this setCurrency(string $sCurrency)
+ * @method $this setCurrency( string $sCurrency )
  * @method string|boolean getCurrency()
  *
- * @method $this setAmountCredit(float $fAmountCredit)
+ * @method $this setAmountCredit( float $fAmountCredit )
  * @method float|boolean getAmountCredit()
  *
- * @method $this setAmountDebit(float $fAmountDebit)
+ * @method $this setAmountDebit( float $fAmountDebit )
  * @method float|boolean getAmountDebit()
  *
- * @method $this setInvoice(string $sInvoice)
+ * @method $this setInvoice( string $sInvoice )
  * @method string|boolean getInvoice()
  *
- * @method $this setOrder(string $sOrder)
+ * @method $this setOrder( string $sOrder )
  * @method string|boolean getOrder()
  *
- * @method $this setDescription(string $sDescription)
+ * @method $this setDescription( string $sDescription )
  * @method string|boolean getDescription()
  *
- * @method $this setClientIP(IpAddress $oIpAddress)
+ * @method $this setClientIP( IpAddress $oIpAddress )
  * @method IpAddress|boolean getClientIP()
  *
- * @method $this setClientUserAgent(string $sUserAgent)
+ * @method $this setClientUserAgent( string $sUserAgent )
  * @method string|boolean getClientUserAgent()
  *
- * @method $this setReturnURL(string $sUrl)
+ * @method $this setReturnURL( string $sUrl )
  * @method string|boolean getReturnURL()
  *
- * @method $this setReturnURLCancel(string $sUrl)
+ * @method $this setReturnURLCancel( string $sUrl )
  * @method string|boolean getReturnURLCancel()
  *
- * @method $this setReturnURLError(string $sUrl)
+ * @method $this setReturnURLError( string $sUrl )
  * @method string|boolean getReturnURLError()
  *
- * @method $this setReturnURLReject(string $sUrl)
+ * @method $this setReturnURLReject( string $sUrl )
  * @method string|boolean getReturnURLReject()
  *
- * @method $this setOriginalTransactionKey(string $sOriginalTransactionKey)
+ * @method $this setOriginalTransactionKey( string $sOriginalTransactionKey )
  * @method string|boolean getOriginalTransactionKey()
  *
- * @method $this setStartRecurrent(boolean $bStartRecurrent)
+ * @method $this setStartRecurrent( boolean $bStartRecurrent )
  * @method boolean getStartRecurrent()
  *
- * @method $this setContinueOnIncomplete(integer $iContinueOnIncomplete)
+ * @method $this setContinueOnIncomplete( integer $iContinueOnIncomplete )
  * @method integer|boolean getContinueOnIncomplete()
  *
- * @method $this setServicesSelectableByClient(string $sServicesSelectableByClient)
+ * @method $this setServicesSelectableByClient( string $sServicesSelectableByClient )
  * @method string|boolean getServicesSelectableByClient()
  *
- * @method $this setServicesExcludedForClient(string $sServicesSelectableByClient)
+ * @method $this setServicesExcludedForClient( string $sServicesSelectableByClient )
  * @method string|boolean getServicesExcludedForClient()
  *
- * @method $this setPushURL(string $sPushURL)
+ * @method $this setPushURL( string $sPushURL )
  * @method string|boolean getPushURL()
  *
- * @method $this setOriginalTransactionReference(OriginalTransactionReference $oOriginalTransactionReference)
+ * @method $this setOriginalTransactionReference( OriginalTransactionReference $oOriginalTransactionReference )
  * @method OriginalTransactionReference|boolean getOriginalTransactionReference()
  */
 class Transaction extends RequestBase
@@ -71,31 +71,14 @@ class Transaction extends RequestBase
     /**
      * Adds a custom parameter
      *
-     * @param string $sName The name of the custom parameter
-     * @param mixed $mValue The value of the custom parameter
+     * @param string $sName  The name of the custom parameter
+     * @param mixed  $mValue The value of the custom parameter
      *
      * @return $this
      */
     public function addCustomParameter($sName, $mValue)
     {
-        $this->ensureDataObject();
-
-        if (!isset($this->oData->CustomParameters)) {
-            $this->oData->CustomParameters = new \stdClass();
-            $this->oData->CustomParameters->List = [];
-        }
-
-        if ($this->hasCustomParameter($sName)) {
-            $this->removeCustomParameter($sName);
-        }
-
-        $oCustomParameter = new CustomParameter();
-        $oCustomParameter->setName($sName);
-        $oCustomParameter->setValue($mValue);
-
-        $this->oData->CustomParameters->List[] = $oCustomParameter;
-
-        return $this;
+        return $this->addParameter('CustomParameters', 'List', $sName, $mValue);
     }
 
     /**
@@ -107,22 +90,7 @@ class Transaction extends RequestBase
      */
     public function getCustomParameter($sName)
     {
-        $this->ensureDataObject();
-
-        if (!isset($this->oData->CustomParameters) || empty($this->oData->CustomParameters->List)) {
-            return false;
-        }
-
-        $mFound = false;
-
-        foreach ($this->oData->CustomParameters->List as $oCustomParameter) {
-            if ($oCustomParameter->getName() == $sName) {
-                $mFound = $oCustomParameter;
-                break;
-            }
-        }
-
-        return $mFound;
+        return $this->getParameter('CustomParameters', 'List', $sName);
     }
 
     /**
@@ -134,7 +102,7 @@ class Transaction extends RequestBase
      */
     public function hasCustomParameter($sName)
     {
-        return ($this->getCustomParameter($sName) !== false ? true : false);
+        return ( $this->getParameter('CustomParameters', 'List', $sName) !== false ? true : false );
     }
 
     /**
@@ -146,15 +114,139 @@ class Transaction extends RequestBase
      */
     public function removeCustomParameter($sName)
     {
+        return $this->removeParameter('CustomParameters', 'List', $sName);
+    }
+
+    /**
+     * Adds an additional parameter
+     *
+     * @param string $sName  The name of the additional parameter
+     * @param mixed  $mValue The value of the additional parameter
+     *
+     * @return $this
+     */
+    public function addAdditionalParameter($sName, $mValue)
+    {
+        return $this->addParameter('AdditionalParameters', 'AdditionalParameter', $sName, $mValue);
+    }
+
+    /**
+     * Gets a specific additional parameter
+     *
+     * @param string $sName The name of the additional parameter to get
+     *
+     * @return boolean|CustomParameter
+     */
+    public function getAdditionalParameter($sName)
+    {
+        return $this->getParameter('AdditionalParameters', 'AdditionalParameter', $sName);
+    }
+
+    /**
+     * Checks if an additional parameter exists
+     *
+     * @param string $sName The name of the additional parameter to check
+     *
+     * @return boolean
+     */
+    public function hasAdditionalParameter($sName)
+    {
+        return ( $this->getParameter('AdditionalParameters', 'AdditionalParameter', $sName) !== false ? true : false );
+    }
+
+    /**
+     * Removes a specific additional parameter
+     *
+     * @param string $sName The name of the custom additional to remove
+     *
+     * @return $this|boolean
+     */
+    public function removeAdditionalParameter($sName)
+    {
+        return $this->removeParameter('AdditionalParameters', 'AdditionalParameter', $sName);
+    }
+
+    /**
+     * Add a custom or additional paramter
+     *
+     * @param string $sType    The type of parameter to add
+     * @param string $sElement The element to add the parameter to
+     * @param string $sName    The name of the parameter
+     * @param mixed  $mValue   The value of the parameter
+     *
+     * @return $this
+     */
+    protected function addParameter($sType, $sElement, $sName, $mValue)
+    {
         $this->ensureDataObject();
 
-        if (!isset($this->oData->CustomParameters) || empty($this->oData->CustomParameters->List)) {
+        if (!isset( $this->oData->{$sType} )) {
+            $this->oData->{$sType} = new \stdClass();
+            $this->oData->{$sType}->{$sElement} = [];
+        }
+
+        if ($this->hasCustomParameter($sName)) {
+            $this->removeCustomParameter($sName);
+        }
+
+        $oCustomParameter = new CustomParameter();
+        $oCustomParameter->setName($sName);
+        $oCustomParameter->setValue($mValue);
+
+        $this->oData->{$sType}->{$sElement}[] = $oCustomParameter;
+
+        return $this;
+    }
+
+    /**
+     * Get a specific custom or additional parameter
+     *
+     * @param string $sType    The type of parameter to get
+     * @param string $sElement The element to get the parameter from
+     * @param string $sName    The name of the parameter to get
+     *
+     * @return boolean|CustomParameter
+     */
+    protected function getParameter($sType, $sElement, $sName)
+    {
+        $this->ensureDataObject();
+
+        if (!isset( $this->oData->{$sType} ) || empty( $this->oData->{$sType}->{$sElement} )) {
             return false;
         }
 
-        foreach ($this->oData->CustomParameters->List as $iIndex => $oCustomParameter) {
+        $mFound = false;
+
+        foreach ($this->oData->{$sType}->{$sElement} as $oCustomParameter) {
             if ($oCustomParameter->getName() == $sName) {
-                unset($this->oData->CustomParameters->List[$iIndex]);
+                $mFound = $oCustomParameter;
+                break;
+            }
+        }
+
+        return $mFound;
+    }
+
+    /**
+     * Removes a specific custom or additional parameter
+     *
+     * @param string $sType    The type of parameter to remove
+     * @param string $sElement The element to remove the parameter from
+     * @param string $sName The name of the parameter to remove
+     *
+     * @return $this|boolean
+     */
+    public function removeParameter($sType, $sElement, $sName)
+    {
+        $this->ensureDataObject();
+
+        if (!isset( $this->oData->{$sType} ) || empty( $this->oData->{$sType}->{$sElement} )) {
+            return false;
+        }
+
+        foreach ($this->oData->{$sType}->{$sElement} as $iIndex => $oCustomParameter) {
+            if ($oCustomParameter->getName() == $sName) {
+                unset( $this->oData->{$sType}->{$sElement}[ $iIndex ] );
                 break;
             }
         }
