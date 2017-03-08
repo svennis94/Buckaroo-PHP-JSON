@@ -1,4 +1,8 @@
 /.idea/
+
 /tmp/
+
+/tests/.env
+
 composer.phar
 /vendor/

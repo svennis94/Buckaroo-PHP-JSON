@@ -1,6 +1,8 @@
 <?php namespace SeBuDesign\BuckarooJson\Tests;
 
+use Faker\Factory;
 use Faker\Generator;
+use Dotenv\Dotenv;
 use SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
 use SeBuDesign\BuckarooJson\Transaction;
@@ -18,7 +20,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         parent::__construct();
 
-        $this->faker = \Faker\Factory::create();
+        // Initialise faker library
+        $this->faker = Factory::create();
+
+        // Load test configuration
+        $dotEnv = new Dotenv(__DIR__);
+        $dotEnv->load();
+
+        $dotEnv->required('BUCKAROO_KEY');
+        $dotEnv->required('BUCKAROO_SECRET');
     }
 
     /**
