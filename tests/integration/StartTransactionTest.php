@@ -59,5 +59,14 @@ class StartTransactionTest extends TestCase
             \DateTime::class,
             $oTransactionResponse->getDateTimeOfStatusChange()
         );
+        $this->assertNotFalse(
+            $oTransactionResponse->getTransactionKey()
+        );
+        $this->assertTrue(
+            $oTransactionResponse->hasRequiredAction()
+        );
+        $this->assertTrue(
+            $oTransactionResponse->hasToRedirect()
+        );
     }
 }

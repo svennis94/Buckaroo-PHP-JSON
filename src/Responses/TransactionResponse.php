@@ -4,6 +4,8 @@ use SeBuDesign\BuckarooJson\Helpers\StatusCodeHelper;
 
 class TransactionResponse
 {
+    const REQUIRED_ACTION_REDIRECT = 'redirect';
+
     protected $aResponseData;
 
     /**
@@ -14,6 +16,21 @@ class TransactionResponse
     public function __construct($aData)
     {
         $this->aResponseData = $aData;
+    }
+
+    /**
+     * Get the transaction key
+     *
+     * @return bool|string
+     */
+    public function getTransactionKey()
+    {
+        $mTransactionKey = false;
+        if (isset($this->aResponseData['Key'])) {
+            $mTransactionKey = $this->aResponseData['Key'];
+        }
+
+        return $mTransactionKey;
     }
 
     /**
@@ -29,21 +46,6 @@ class TransactionResponse
         }
 
         return $iCode;
-    }
-
-    /**
-     * Get the date and time of the last status change
-     *
-     * @return bool|\DateTime
-     */
-    public function getDateTimeOfStatusChange()
-    {
-        $mDateTime = false;
-        if (isset($this->aResponseData['Status'], $this->aResponseData['Status']['DateTime'])) {
-            $mDateTime = new \DateTime($this->aResponseData['Status']['DateTime']);
-        }
-
-        return $mDateTime;
     }
 
     /**
@@ -64,6 +66,51 @@ class TransactionResponse
     protected function hasStatusSubCode()
     {
         return isset($this->aResponseData['Status'], $this->aResponseData['Status']['SubCode'], $this->aResponseData['Status']['SubCode']['Code']);
+    }
+
+    /**
+     * Get the date and time of the last status change
+     *
+     * @return bool|\DateTime
+     */
+    public function getDateTimeOfStatusChange()
+    {
+        $mDateTime = false;
+        if (isset($this->aResponseData['Status'], $this->aResponseData['Status']['DateTime'])) {
+            $mDateTime = new \DateTime($this->aResponseData['Status']['DateTime']);
+        }
+
+        return $mDateTime;
+    }
+
+    /**
+     * Does the transaction have a required action
+     *
+     * @return bool
+     */
+    public function hasRequiredAction()
+    {
+        return isset($this->aResponseData['RequiredAction']);
+    }
+
+    /**
+     * Does the user has to be redirected?
+     *
+     * @return bool
+     */
+    public function hasToRedirect()
+    {
+        $bHasToRedirect = false;
+
+        if (
+            $this->hasRequiredAction() &&
+            isset($this->aResponseData['RequiredAction']['Name']) &&
+            strtolower($this->aResponseData['RequiredAction']['Name']) == self::REQUIRED_ACTION_REDIRECT
+        ) {
+            $bHasToRedirect = true;
+        }
+
+        return $bHasToRedirect;
     }
 
     /**
