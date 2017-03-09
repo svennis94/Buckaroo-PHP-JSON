@@ -80,9 +80,9 @@ class Transaction extends RequestBase
      */
     public function start()
     {
-        $aResponse = $this->performRequest('Transaction', 'POST');
-
-        return new TransactionRequestResponse();
+        return new TransactionRequestResponse(
+            $this->performRequest('Transaction', 'POST')
+        );
     }
 
     /**
