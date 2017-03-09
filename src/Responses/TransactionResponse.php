@@ -1,11 +1,11 @@
 <?php namespace SeBuDesign\BuckarooJson\Responses;
 
-class TransactionRequestResponse
+class TransactionResponse
 {
     protected $aResponseData;
 
     /**
-     * TransactionRequestResponse constructor.
+     * TransactionResponse constructor.
      *
      * @param array $aData The response data
      */

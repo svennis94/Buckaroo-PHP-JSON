@@ -4,7 +4,7 @@ use SeBuDesign\BuckarooJson\Parts\CustomParameter;
 use \SeBuDesign\BuckarooJson\Parts\IpAddress;
 use \SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
 use SeBuDesign\BuckarooJson\Parts\Service;
-use SeBuDesign\BuckarooJson\Responses\TransactionRequestResponse;
+use SeBuDesign\BuckarooJson\Responses\TransactionResponse;
 
 /**
  * Class Transaction
@@ -76,11 +76,11 @@ class Transaction extends RequestBase
     /**
      * Start the transaction
      *
-     * @return TransactionRequestResponse
+     * @return TransactionResponse
      */
     public function start()
     {
-        return new TransactionRequestResponse(
+        return new TransactionResponse(
             $this->performRequest('Transaction', 'POST')
         );
     }
@@ -340,8 +340,10 @@ class Transaction extends RequestBase
             $aService = get_object_vars($oService->oData);
 
             $aService['Parameters'] = [];
-            foreach($oService->oData->Parameters as $oParameter) {
-                $aService['Parameters'][] = get_object_vars($oParameter->oData);
+            if (isset($oService->oData->Parameters)) {
+                foreach ($oService->oData->Parameters as $oParameter) {
+                    $aService[ 'Parameters' ][] = get_object_vars($oParameter->oData);
+                }
             }
 
             $aServices['ServiceList'][] = $aService;
