@@ -32,6 +32,21 @@ class TransactionResponse
     }
 
     /**
+     * Get the date and time of the last status change
+     *
+     * @return bool|\DateTime
+     */
+    public function getDateTimeOfStatusChange()
+    {
+        $mDateTime = false;
+        if (isset($this->aResponseData['Status'], $this->aResponseData['Status']['DateTime'])) {
+            $mDateTime = new \DateTime($this->aResponseData['Status']['DateTime']);
+        }
+
+        return $mDateTime;
+    }
+
+    /**
      * Does the response have a status code?
      *
      * @return bool

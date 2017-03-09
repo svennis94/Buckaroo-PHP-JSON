@@ -13,18 +13,18 @@ class StartTransactionTest extends TestCase
         $oTransaction->putInTestMode();
         $oTransaction->setAmountDebit(1.0);
 
-        $oTransactionRequest = $oTransaction->start();
+        $oTransactionResponse = $oTransaction->start();
 
         $this->assertInstanceOf(
             TransactionResponse::class,
-            $oTransactionRequest
+            $oTransactionResponse
         );
         $this->assertTrue(
-            $oTransactionRequest->hasErrors()
+            $oTransactionResponse->hasErrors()
         );
         $this->assertCount(
             1,
-            $oTransactionRequest->getErrors()
+            $oTransactionResponse->getErrors()
         );
 
     }
@@ -34,6 +34,7 @@ class StartTransactionTest extends TestCase
     {
         $oTransaction = new Transaction(getenv('BUCKAROO_KEY'), getenv('BUCKAROO_SECRET'));
         $oTransaction->putInTestMode();
+        $oTransaction->setCurrency('EUR');
         $oTransaction->setAmountDebit(1.0);
         $oTransaction->setInvoice(time());
 
@@ -42,16 +43,21 @@ class StartTransactionTest extends TestCase
         $oService->setAction('Pay');
         $oService->setVersion(2);
         $oService->addParameter('issuer', 'INGBNL2A');
+
         $oTransaction->addService($oService);
 
-        $oTransactionRequest = $oTransaction->start();
+        $oTransactionResponse = $oTransaction->start();
 
         $this->assertInstanceOf(
             TransactionResponse::class,
-            $oTransactionRequest
+            $oTransactionResponse
         );
         $this->assertFalse(
-            $oTransactionRequest->hasErrors()
+            $oTransactionResponse->hasErrors()
+        );
+        $this->assertInstanceOf(
+            \DateTime::class,
+            $oTransactionResponse->getDateTimeOfStatusChange()
         );
     }
 }
