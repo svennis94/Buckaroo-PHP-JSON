@@ -41,7 +41,7 @@ class TransactionTest extends TestCase
         );
         $this->assertEquals(
             'https://checkout.buckaroo.nl/json/',
-            $this->accessProtectedProperty($oTransaction, 'sEndpoint')
+            $this->accessProtectedProperty($oTransaction, 'aRequestData')['base_uri']
         );
 
         $this->assertInstanceOf(
@@ -54,7 +54,7 @@ class TransactionTest extends TestCase
         );
         $this->assertEquals(
             'https://testcheckout.buckaroo.nl/json/',
-            $this->accessProtectedProperty($oTransaction, 'sEndpoint')
+            $this->accessProtectedProperty($oTransaction, 'aRequestData')['base_uri']
         );
     }
 
