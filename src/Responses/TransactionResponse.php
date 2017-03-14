@@ -114,6 +114,22 @@ class TransactionResponse
     }
 
     /**
+     * Get the redirect url
+     *
+     * @return bool|string
+     */
+    public function getRedirectUrl()
+    {
+        $mUrl = false;
+
+        if ($this->hasToRedirect()) {
+            $mUrl = $this->aResponseData['RequiredAction']['RedirectURL'];
+        }
+
+        return $mUrl;
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type
