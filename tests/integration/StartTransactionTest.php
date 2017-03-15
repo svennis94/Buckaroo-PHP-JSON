@@ -96,5 +96,17 @@ class StartTransactionTest extends TestCase
             [],
             $oTransactionResponse->getAdditionalParameters()
         );
+        $this->assertCount(
+            1,
+            $oTransactionResponse->getServices()
+        );
+        $this->assertEquals(
+            'ideal',
+            $oTransactionResponse->getService('ideal')['Name']
+        );
+        $this->assertCount(
+            2,
+            $oTransactionResponse->getServiceParameters('ideal')
+        );
     }
 }

@@ -258,6 +258,73 @@ class TransactionResponse
     }
 
     /**
+     * Get the parameters of a specific service
+     *
+     * @param string $sName The name of the service
+     *
+     * @return bool|array
+     */
+    public function getServiceParameters($sName)
+    {
+        $mResult = false;
+
+        $aService = $this->getService($sName);
+        if ($aService !== false) {
+            $mResult = $aService['Parameters'];
+        }
+
+        return $mResult;
+    }
+
+    /**
+     * Get a service by name
+     *
+     * @param string $sName The name of the service
+     *
+     * @return bool|array
+     */
+    public function getService($sName)
+    {
+        $mResult = false;
+
+        foreach ($this->getServices() as $aService) {
+            if ($aService['Name'] == $sName) {
+                $mResult = $aService;
+                break;
+            }
+        }
+
+        return $mResult;
+    }
+
+    /**
+     * Get all the services
+     *
+     * @return array
+     */
+    public function getServices()
+    {
+        $aServices = [];
+
+        if (isset($this->aResponseData['Services']) && is_array($this->aResponseData['Services'])) {
+            foreach ($this->aResponseData['Services'] as $aService) {
+
+                $aServiceParameters = [];
+                if (is_array($aService['Parameters'])) {
+                    foreach ($aService[ 'Parameters' ] as $aServiceParameter) {
+                        $aServiceParameters[ $aServiceParameter[ 'Name' ] ] = $aServiceParameter[ 'Value' ];
+                    }
+                }
+
+                $aService['Parameters'] = $aServiceParameters;
+                $aServices[] = $aService;
+            }
+        }
+
+        return $aServices;
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type
