@@ -75,9 +75,11 @@ class RequestBase
 
     protected function getAuthorizationHeader($sContent, $sCall, $sMethod)
     {
-        $sContent = base64_encode(
-            md5($sContent, true)
-        );
+        if (!empty($sContent)) {
+            $sContent = base64_encode(
+                md5($sContent, true)
+            );
+        }
 
         $iTime = time();
 

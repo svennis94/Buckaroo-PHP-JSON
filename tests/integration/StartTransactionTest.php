@@ -36,19 +36,7 @@ class StartTransactionTest extends TestCase
         $sCurrency = 'EUR';
         $fAmountDebit = 1.0;
 
-        $oTransaction = new Transaction(getenv('BUCKAROO_KEY'), getenv('BUCKAROO_SECRET'));
-        $oTransaction->putInTestMode();
-        $oTransaction->setCurrency($sCurrency);
-        $oTransaction->setAmountDebit($fAmountDebit);
-        $oTransaction->setInvoice($sInvoice);
-
-        $oService = new Service();
-        $oService->setName('ideal');
-        $oService->setAction('Pay');
-        $oService->setVersion(2);
-        $oService->addParameter('issuer', 'INGBNL2A');
-
-        $oTransaction->addService($oService);
+        $oTransaction = $this->getValidIntegrationTransaction($fAmountDebit, $sCurrency, $sInvoice);
 
         $oTransactionResponse = $oTransaction->start();
 
@@ -165,6 +153,9 @@ class StartTransactionTest extends TestCase
         );
         $this->assertNotNull(
             $oTransactionResponse->getPaymentKey()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->isCancelable()
         );
     }
 }
