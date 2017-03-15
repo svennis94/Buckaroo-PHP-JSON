@@ -383,6 +383,16 @@ class TransactionResponse
     }
 
     /**
+     * Is this the transaction cancelable?
+     *
+     * @return boolean
+     */
+    public function isCancelable()
+    {
+        return (!isset($this->aResponseData['IsCancelable']) || is_null($this->aResponseData['IsCancelable']) ? false : $this->aResponseData['IsCancelable']);
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type

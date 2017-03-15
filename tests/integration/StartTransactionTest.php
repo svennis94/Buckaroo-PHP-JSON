@@ -166,5 +166,8 @@ class StartTransactionTest extends TestCase
         $this->assertNotNull(
             $oTransactionResponse->getPaymentKey()
         );
+        $this->assertFalse(
+            $oTransactionResponse->isCancelable()
+        );
     }
 }
