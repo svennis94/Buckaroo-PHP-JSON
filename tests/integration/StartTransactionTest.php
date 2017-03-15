@@ -71,5 +71,23 @@ class StartTransactionTest extends TestCase
         $this->assertNotFalse(
             $oTransactionResponse->getRedirectUrl()
         );
+        $this->assertEquals(
+            [],
+            $oTransactionResponse->getRequestedInformation()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->hasToPayRemainder()
+        );
+        $this->assertEquals(
+            0,
+            $oTransactionResponse->getRemainderAmount()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getRemainderCurrency()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getRemainderGroupTransaction()
+        );
+        
     }
 }

@@ -130,6 +130,80 @@ class TransactionResponse
     }
 
     /**
+     * Get the requested information
+     *
+     * @return array
+     */
+    public function getRequestedInformation()
+    {
+        $aRequestedInformation = [];
+
+        if ($this->hasRequiredAction() && !is_null($this->aResponseData['RequiredAction']['RequestedInformation'])) {
+            $aRequestedInformation = $this->aResponseData['RequiredAction']['RequestedInformation'];
+        }
+
+        return $aRequestedInformation;
+    }
+
+    /**
+     * Does this request has to pay a remainder
+     *
+     * @return bool
+     */
+    public function hasToPayRemainder()
+    {
+        return (isset($this->aResponseData['RequiredAction']['PayRemainderDetails']) && !is_null($this->aResponseData['RequiredAction']['PayRemainderDetails']));
+    }
+
+    /**
+     * Get the remainder amount
+     *
+     * @return float
+     */
+    public function getRemainderAmount()
+    {
+        $fRemainderAmount = 0.0;
+
+        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails']['RemainderAmount'])) {
+            $fRemainderAmount = $this->aResponseData['RequiredAction']['PayRemainderDetails']['RemainderAmount'];
+        }
+
+        return $fRemainderAmount;
+    }
+
+    /**
+     * Get the remainder currency
+     *
+     * @return boolean|string
+     */
+    public function getRemainderCurrency()
+    {
+        $mCurrency = false;
+
+        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails']['Currency'])) {
+            $mCurrency = $this->aResponseData['RequiredAction']['PayRemainderDetails']['Currency'];
+        }
+
+        return $mCurrency;
+    }
+
+    /**
+     * Get the remainder group transaction
+     *
+     * @return boolean|string
+     */
+    public function getRemainderGroupTransaction()
+    {
+        $mGroupTransaction = false;
+
+        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails']['GroupTransaction'])) {
+            $mGroupTransaction = $this->aResponseData['RequiredAction']['PayRemainderDetails']['GroupTransaction'];
+        }
+
+        return $mGroupTransaction;
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type
