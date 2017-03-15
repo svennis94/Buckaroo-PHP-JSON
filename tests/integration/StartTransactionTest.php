@@ -47,6 +47,14 @@ class StartTransactionTest extends TestCase
         $this->assertFalse(
             $oTransactionResponse->hasErrors()
         );
+        $this->assertNotEquals(
+            0,
+            $oTransactionResponse->getStatusCode()
+        );
+        $this->assertNotEquals(
+            0,
+            $oTransactionResponse->getStatusSubCode()
+        );
         $this->assertInstanceOf(
             \DateTime::class,
             $oTransactionResponse->getDateTimeOfStatusChange()
@@ -156,6 +164,15 @@ class StartTransactionTest extends TestCase
         );
         $this->assertFalse(
             $oTransactionResponse->isCancelable()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->hasConsumerMessage()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->hasToReadConsumerMessage()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getConsumerMessage()
         );
     }
 }

@@ -67,6 +67,21 @@ class TransactionResponse
     }
 
     /**
+     * Get the current status code
+     *
+     * @return int
+     */
+    public function getStatusSubCode()
+    {
+        $iCode = 0;
+        if ($this->hasStatusSubCode()) {
+            $iCode = $this->aResponseData['Status']['SubCode']['Code'];
+        }
+
+        return $iCode;
+    }
+
+    /**
      * Does the response have a status code?
      *
      * @return bool
@@ -390,6 +405,48 @@ class TransactionResponse
     public function isCancelable()
     {
         return (!isset($this->aResponseData['IsCancelable']) || is_null($this->aResponseData['IsCancelable']) ? false : $this->aResponseData['IsCancelable']);
+    }
+
+    /**
+     * Is there a consumer message?
+     *
+     * @return bool
+     */
+    public function hasConsumerMessage()
+    {
+        return (!isset($this->aResponseData['ConsumerMessage']) || is_null($this->aResponseData['ConsumerMessage']) ? false : true);
+    }
+
+    /**
+     * Does the client need to read the message?
+     *
+     * @return bool
+     */
+    public function hasToReadConsumerMessage()
+    {
+        $bHasToRead = false;
+
+        if ($this->hasConsumerMessage()) {
+            $bHasToRead = (boolean) $this->aResponseData['ConsumerMessage']['MustRead'];
+        }
+
+        return $bHasToRead;
+    }
+
+    /**
+     * Get the consumer message
+     *
+     * @return bool|array
+     */
+    public function getConsumerMessage()
+    {
+        $mConsumerMessage = false;
+
+        if ($this->hasConsumerMessage()) {
+            $mConsumerMessage = $this->aResponseData['ConsumerMessage'];
+        }
+
+        return $mConsumerMessage;
     }
 
     /**

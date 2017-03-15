@@ -18,6 +18,7 @@ composer require sebudesign/buckaroo-json
 require 'vendor/autoload.php';
 
 use SeBuDesign\BuckarooJson\Transaction;
+use SeBuDesign\BuckarooJson\TransactionStatus;
 use SeBuDesign\BuckarooJson\Parts\IpAddress;
 use SeBuDesign\BuckarooJson\Parts\Service;
 use SeBuDesign\BuckarooJson\Parts\OriginalTransactionReference;
@@ -131,60 +132,97 @@ class Foo
         $transaction->hasAdditionalParameter('name');
         
         // Start the transaction
-        $transactionAction = $transaction->start();
+        $transactionResponse = $transaction->start();
         
         var_dump(
-            $transactionAction->getTransactionKey(),
-            $transactionAction->getOrder(),
-            $transactionAction->getIssuingCountry(),
-            $transactionAction->getInvoice(),
-            $transactionAction->getServiceCode(),
-            $transactionAction->getCurrency(),
-            $transactionAction->getAmountDebit(),
-            $transactionAction->getAmountCredit(),
-            $transactionAction->getTransactionType(),
-            $transactionAction->getMutationType(),
-            $transactionAction->getRelatedTransactions(),
-            $transactionAction->getRelatedTransactions()[1]->getType(),
-            $transactionAction->getRelatedTransactions()[1]->getTransactionKey(),
-            $transactionAction->getConsumerMessage(),
-            $transactionAction->getConsumerMessage()->hasToRead(),
-            $transactionAction->getConsumerMessage()->getCulture(),
-            $transactionAction->getConsumerMessage()->getTitle(),
-            $transactionAction->getConsumerMessage()->getPlainText(),
-            $transactionAction->getConsumerMessage()->getHtmlText(),
-            $transactionAction->isTest(),
-            $transactionAction->isFirstRecurring(),
-            $transactionAction->isRecurring(),
-            $transactionAction->getClientName(),
-            $transactionAction->getPayerHash(),
-            $transactionAction->getPaymentKey(),
-            $transactionAction->getStatus()->getCode(),
-            $transactionAction->getStatus()->getDescription(),
-            $transactionAction->getSubStatus()->getCode(),
-            $transactionAction->getSubStatus()->getDescription(),
-            $transactionAction->getStatusChangedAt(),
-            $transactionAction->getRequiredAction()->hasToRedirect(),
-            $transactionAction->getRequiredAction()->getName(),
-            $transactionAction->getRequiredAction()->isDeprecated(),
-            $transactionAction->getRequiredAction()->getRedirectUrl(),
-            $transactionAction->getRequiredAction()->getRequestedInformation(),
-            $transactionAction->getRequiredAction()->getPayRemainderDetails()->getRemainderAmount(),
-            $transactionAction->getRequiredAction()->getPayRemainderDetails()->getCurrency(),
-            $transactionAction->getServices(),
-            $transactionAction->getServices()[1]->getName(),
-            $transactionAction->getServices()[1]->getAction(),
-            $transactionAction->getServices()[1]->getVersion(),
-            $transactionAction->getServices()[1]->getParameters(),
-            $transactionAction->getCustomParameters(),
-            $transactionAction->getAdditionalParameters(),
-            $transactionAction->hasErrors(),
-            $transactionAction->getErrors(),
+            $transactionResponse->getTransactionKey(),
+            $transactionResponse->getOrder(),
+            $transactionResponse->getIssuingCountry(),
+            $transactionResponse->getInvoice(),
+            $transactionResponse->getServiceCode(),
+            $transactionResponse->getCurrency(),
+            $transactionResponse->getAmountDebit(),
+            $transactionResponse->getAmountCredit(),
+            $transactionResponse->getTransactionType(),
+            $transactionResponse->getMutationType(),
+            $transactionResponse->getRelatedTransactions(),
+            $transactionResponse->hasConsumerMessage(),
+            $transactionResponse->hasToReadConsumerMessage(),
+            $transactionResponse->getConsumerMessage(),
+            $transactionResponse->isTest(),
+            $transactionResponse->hasStartedRecurringPayment(),
+            $transactionResponse->isRecurringPayment(),
+            $transactionResponse->isCancelable(),
+            $transactionResponse->getCustomerName(),
+            $transactionResponse->getPayerHash(),
+            $transactionResponse->getPaymentKey(),
+            $transactionResponse->getStatusCode(),
+            $transactionResponse->getStatusSubCode(),
+            $transactionResponse->getDateTimeOfStatusChange(),
+            $transactionResponse->hasRequiredAction(),
+            $transactionResponse->getRequestedInformation(),
+            $transactionResponse->hasToRedirect(),
+            $transactionResponse->hasToPayRemainder(),
+            $transactionResponse->getRemainderAmount(),
+            $transactionResponse->getRemainderCurrency(),
+            $transactionResponse->getRemainderGroupTransaction(),
+            $transactionResponse->getRedirectUrl(),
+            $transactionResponse->getServices(),
+            $transactionResponse->getService('name'),
+            $transactionResponse->getServiceParameters('name'),
+            $transactionResponse->getCustomParameters(),
+            $transactionResponse->getAdditionalParameters(),
+            $transactionResponse->hasErrors(),
+            $transactionResponse->getErrors()
         );
+    }
+    
+    public function getTransactionStatus()
+    {
+        $transactionStatus = new TransactionStatus('website-key', 'secret-key');
+        $transactionResponse = $transactionStatus->get('transaction-key');
         
-        if ($transactionAction->getRequiredAction()->hasToRedirect()) {
-            header('Location: ' . $transactionAction->getRequiredAction()->getRedirectUrl());
-        }
+        var_dump(
+            $transactionResponse->getTransactionKey(),
+            $transactionResponse->getOrder(),
+            $transactionResponse->getIssuingCountry(),
+            $transactionResponse->getInvoice(),
+            $transactionResponse->getServiceCode(),
+            $transactionResponse->getCurrency(),
+            $transactionResponse->getAmountDebit(),
+            $transactionResponse->getAmountCredit(),
+            $transactionResponse->getTransactionType(),
+            $transactionResponse->getMutationType(),
+            $transactionResponse->getRelatedTransactions(),
+            $transactionResponse->hasConsumerMessage(),
+            $transactionResponse->hasToReadConsumerMessage(),
+            $transactionResponse->getConsumerMessage(),
+            $transactionResponse->isTest(),
+            $transactionResponse->hasStartedRecurringPayment(),
+            $transactionResponse->isRecurringPayment(),
+            $transactionResponse->isCancelable(),
+            $transactionResponse->getCustomerName(),
+            $transactionResponse->getPayerHash(),
+            $transactionResponse->getPaymentKey(),
+            $transactionResponse->getStatusCode(),
+            $transactionResponse->getStatusSubCode(),
+            $transactionResponse->getDateTimeOfStatusChange(),
+            $transactionResponse->hasRequiredAction(),
+            $transactionResponse->getRequestedInformation(),
+            $transactionResponse->hasToRedirect(),
+            $transactionResponse->hasToPayRemainder(),
+            $transactionResponse->getRemainderAmount(),
+            $transactionResponse->getRemainderCurrency(),
+            $transactionResponse->getRemainderGroupTransaction(),
+            $transactionResponse->getRedirectUrl(),
+            $transactionResponse->getServices(),
+            $transactionResponse->getService('name'),
+            $transactionResponse->getServiceParameters('name'),
+            $transactionResponse->getCustomParameters(),
+            $transactionResponse->getAdditionalParameters(),
+            $transactionResponse->hasErrors(),
+            $transactionResponse->getErrors()
+        );
     }
 }
 
