@@ -204,6 +204,60 @@ class TransactionResponse
     }
 
     /**
+     * Do we have a specific type of parameters
+     *
+     * @param string $sParameterType The parameter type
+     * @param string $sList The list name
+     *
+     * @return bool
+     */
+    public function hasParameterType($sParameterType, $sList)
+    {
+        return (isset($this->aResponseData[$sParameterType], $this->aResponseData[$sParameterType][$sList]) && is_array($this->aResponseData[$sParameterType][$sList]) && count($this->aResponseData[$sParameterType][$sList]) > 0);
+    }
+
+    /**
+     * Get all the parameters from a specific type
+     *
+     * @param string $sParameterType The parameter type
+     * @param string $sList The list name
+     *
+     * @return array
+     */
+    public function getParametersFromType($sParameterType, $sList)
+    {
+        $aParameters = [];
+
+        if ($this->hasParameterType($sParameterType, $sList)) {
+            foreach ($this->aResponseData[$sParameterType][$sList] as $aListData) {
+                $aParameters[$aListData['Name']] = $aListData['Value'];
+            }
+        }
+
+        return $aParameters;
+    }
+
+    /**
+     * Get the custom parameters
+     *
+     * @return array
+     */
+    public function getCustomParameters()
+    {
+        return $this->getParametersFromType('CustomParameters', 'List');
+    }
+
+    /**
+     * Get the custom parameters
+     *
+     * @return array
+     */
+    public function getAdditionalParameters()
+    {
+        return $this->getParametersFromType('AdditionalParameters', 'AdditionalParameter');
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type

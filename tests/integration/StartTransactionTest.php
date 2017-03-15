@@ -88,6 +88,13 @@ class StartTransactionTest extends TestCase
         $this->assertFalse(
             $oTransactionResponse->getRemainderGroupTransaction()
         );
-        
+        $this->assertEquals(
+            [],
+            $oTransactionResponse->getCustomParameters()
+        );
+        $this->assertEquals(
+            [],
+            $oTransactionResponse->getAdditionalParameters()
+        );
     }
 }
