@@ -32,11 +32,15 @@ class StartTransactionTest extends TestCase
     /** @test */
     public function it_should_return_a_valid_transaction_request_response()
     {
+        $sInvoice = time();
+        $sCurrency = 'EUR';
+        $fAmountDebit = 1.0;
+
         $oTransaction = new Transaction(getenv('BUCKAROO_KEY'), getenv('BUCKAROO_SECRET'));
         $oTransaction->putInTestMode();
-        $oTransaction->setCurrency('EUR');
-        $oTransaction->setAmountDebit(1.0);
-        $oTransaction->setInvoice(time());
+        $oTransaction->setCurrency($sCurrency);
+        $oTransaction->setAmountDebit($fAmountDebit);
+        $oTransaction->setInvoice($sInvoice);
 
         $oService = new Service();
         $oService->setName('ideal');
@@ -107,6 +111,60 @@ class StartTransactionTest extends TestCase
         $this->assertCount(
             2,
             $oTransactionResponse->getServiceParameters('ideal')
+        );
+        $this->assertEquals(
+            $sInvoice,
+            $oTransactionResponse->getInvoice()
+        );
+        $this->assertEquals(
+            'ideal',
+            $oTransactionResponse->getServiceCode()
+        );
+        $this->assertTrue(
+            $oTransactionResponse->isTest()
+        );
+        $this->assertEquals(
+            $sCurrency,
+            $oTransactionResponse->getCurrency()
+        );
+        $this->assertEquals(
+            $fAmountDebit,
+            $oTransactionResponse->getAmountDebit()
+        );
+        $this->assertEquals(
+            0,
+            $oTransactionResponse->getAmountCredit()
+        );
+        $this->assertNotNull(
+            $oTransactionResponse->getTransactionType()
+        );
+        $this->assertEquals(
+            1,
+            $oTransactionResponse->getMutationType()
+        );
+        $this->assertTrue(
+            is_array($oTransactionResponse->getRelatedTransactions())
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getOrder()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getIssuingCountry()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->hasStartedRecurringPayment()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->isRecurringPayment()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getCustomerName()
+        );
+        $this->assertFalse(
+            $oTransactionResponse->getPayerHash()
+        );
+        $this->assertNotNull(
+            $oTransactionResponse->getPaymentKey()
         );
     }
 }

@@ -2,6 +2,24 @@
 
 use SeBuDesign\BuckarooJson\Helpers\StatusCodeHelper;
 
+/**
+ * Class TransactionResponse
+ *
+ * @package SeBuDesign\BuckarooJson\Responses
+ *
+ * @method string|boolean getInvoice()
+ * @method string|boolean getServiceCode()
+ * @method string|boolean getCurrency()
+ * @method float getAmountDebit()
+ * @method float getAmountCredit()
+ * @method string|boolean getTransactionType()
+ * @method integer|boolean getMutationType()
+ * @method string|boolean getOrder()
+ * @method string|boolean getIssuingCountry()
+ * @method string|boolean getCustomerName()
+ * @method string|boolean getPayerHash()
+ * @method string|boolean getPaymentKey()
+ */
 class TransactionResponse
 {
     const REQUIRED_ACTION_REDIRECT = 'redirect';
@@ -325,6 +343,46 @@ class TransactionResponse
     }
 
     /**
+     * Is this a test transaction?
+     *
+     * @return boolean|null
+     */
+    public function isTest()
+    {
+        return (isset($this->aResponseData['IsTest']) ? $this->aResponseData['IsTest'] : null);
+    }
+
+    /**
+     * Get the related transactions
+     *
+     * @return array
+     */
+    public function getRelatedTransactions()
+    {
+        return (!isset($this->aResponseData['RelatedTransactions']) || is_null($this->aResponseData['RelatedTransactions']) ? [] : $this->aResponseData['RelatedTransactions']);
+    }
+
+    /**
+     * Is this the start of recurring payments?
+     *
+     * @return boolean
+     */
+    public function hasStartedRecurringPayment()
+    {
+        return (!isset($this->aResponseData['StartRecurrent']) || is_null($this->aResponseData['StartRecurrent']) ? false : $this->aResponseData['StartRecurrent']);
+    }
+
+    /**
+     * Is this a recurring payments?
+     *
+     * @return boolean
+     */
+    public function isRecurringPayment()
+    {
+        return (!isset($this->aResponseData['Recurring']) || is_null($this->aResponseData['Recurring']) ? false : $this->aResponseData['Recurring']);
+    }
+
+    /**
      * Check if there are any errors from a specific type
      *
      * @param string $sErrorType The error type
@@ -393,5 +451,27 @@ class TransactionResponse
         }
 
         return $bErrors;
+    }
+
+    /**
+     * Dynamically get values
+     *
+     * @param string $sName      The name of the called function
+     * @param array  $aArguments The arguments passed to the function
+     *
+     * @return boolean|string|$this
+     */
+    public function __call($sName, $aArguments)
+    {
+        // Check if the method exists in the class
+        if (!method_exists($this, $sName)) {
+            if (strpos($sName, 'get') === 0) {
+                // With a method that starts with get, get the data
+
+                $sName = str_replace('get', '', $sName);
+
+                return (isset($this->aResponseData[$sName]) ? $this->aResponseData[$sName] : false);
+            }
+        }
     }
 }
