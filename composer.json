@@ -1,5 +1,5 @@
 {
-    "name": "sebudesign/buckaroo-php-json",
+    "name": "sebudesign/buckaroo-json",
     "description": "Connect to the JSON API from Buckaroo",
     "keywords": ["PHP", "Buckaroo", "JSON"],
     "type": "library",
@@ -20,7 +20,9 @@
         "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0"
+        "phpunit/phpunit": "^6.0",
+        "fzaninotto/faker": "^1.6",
+        "vlucas/phpdotenv": "^2.4"
     },
     "autoload": {
         "psr-4": {
