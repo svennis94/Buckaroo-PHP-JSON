@@ -147,6 +147,25 @@ class TransactionResponse
     }
 
     /**
+     * Get the required action name
+     *
+     * @return string|boolean
+     */
+    public function getRequiredActionName()
+    {
+        $mRequiredActionName = false;
+
+        if (
+            $this->hasRequiredAction() &&
+            isset($this->aResponseData['RequiredAction']['Name'])
+        ) {
+            $mRequiredActionName = $this->aResponseData['RequiredAction']['Name'];
+        }
+
+        return $mRequiredActionName;
+    }
+
+    /**
      * Get the redirect url
      *
      * @return bool|string

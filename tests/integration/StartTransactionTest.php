@@ -68,6 +68,10 @@ class StartTransactionTest extends TestCase
         $this->assertTrue(
             $oTransactionResponse->hasToRedirect()
         );
+        $this->assertEquals(
+            TransactionResponse::REQUIRED_ACTION_REDIRECT,
+            strtolower($oTransactionResponse->getRequiredActionName())
+        );
         $this->assertNotFalse(
             $oTransactionResponse->getRedirectUrl()
         );
