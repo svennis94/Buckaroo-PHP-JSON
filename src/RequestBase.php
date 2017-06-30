@@ -36,7 +36,8 @@ class RequestBase
     protected $aRequestData = [
         'base_uri' => 'https://checkout.buckaroo.nl/json/',
         'headers' => [
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'culture' => 'nl-NL'
         ],
     ];
 
