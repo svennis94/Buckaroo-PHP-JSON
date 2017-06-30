@@ -36,8 +36,7 @@ class RequestBase
     protected $aRequestData = [
         'base_uri' => 'https://checkout.buckaroo.nl/json/',
         'headers' => [
-            'Content-Type' => 'application/json',
-            'culture' => 'nl-NL'
+            'Content-Type' => 'application/json'
         ],
     ];
 
@@ -70,6 +69,19 @@ class RequestBase
     {
         $this->bTesting = true;
         $this->aRequestData['base_uri'] = 'https://testcheckout.buckaroo.nl/json/';
+
+        return $this;
+    }
+
+    /**
+     * Add a header to the Guzzle HTTP client
+     *
+     * @param $sHeaderKey
+     * @param $sHeaderValue
+     */
+    public function addClientHeader($sHeaderKey, $sHeaderValue)
+    {
+        $this->aRequestData['headers'][$sHeaderKey] = $sHeaderValue;
 
         return $this;
     }
