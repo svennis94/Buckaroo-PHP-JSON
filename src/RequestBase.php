@@ -73,6 +73,19 @@ class RequestBase
         return $this;
     }
 
+    /**
+     * Add a header to the Guzzle HTTP client
+     *
+     * @param $sHeaderKey
+     * @param $sHeaderValue
+     */
+    public function addClientHeader($sHeaderKey, $sHeaderValue)
+    {
+        $this->aRequestData['headers'][$sHeaderKey] = $sHeaderValue;
+
+        return $this;
+    }
+
     protected function getAuthorizationHeader($sContent, $sCall, $sMethod)
     {
         if (!empty($sContent)) {
