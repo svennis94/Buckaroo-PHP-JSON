@@ -89,6 +89,37 @@ class RequestBase
     }
 
     /**
+     * Checks if a header is added to the Guzzle HTTP client
+     *
+     * @param string $sHeaderKey The name of the header
+     *
+     * @return boolean
+     */
+    public function hasClientHeader($sHeaderKey)
+    {
+        return isset(
+            $this->aRequestData['headers'],
+            $this->aRequestData['headers'][$sHeaderKey]
+        );
+    }
+
+    /**
+     * Retrieve a header from the Guzzle HTTP client
+     *
+     * @param string $sHeaderKey The name of the header
+     *
+     * @return mixed
+     */
+    public function getClientHeader($sHeaderKey)
+    {
+        return (
+            $this->hasClientHeader($sHeaderKey) ?
+            $this->aRequestData['headers'][$sHeaderKey] :
+            null
+        );
+    }
+
+    /**
      * Generate the authorization header
      *
      * @param string $sContent A string of the content to post/put/patch
