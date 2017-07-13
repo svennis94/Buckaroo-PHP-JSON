@@ -188,13 +188,13 @@ class TransactionResponse
      */
     public function getRequestedInformation()
     {
-        $aRequestedInformation = [];
+        $aInformation = [];
 
         if ($this->hasRequiredAction() && !is_null($this->aResponseData['RequiredAction']['RequestedInformation'])) {
-            $aRequestedInformation = $this->aResponseData['RequiredAction']['RequestedInformation'];
+            $aInformation = $this->aResponseData['RequiredAction']['RequestedInformation'];
         }
 
-        return $aRequestedInformation;
+        return $aInformation;
     }
 
     /**
@@ -230,13 +230,7 @@ class TransactionResponse
      */
     public function getRemainderCurrency()
     {
-        $mCurrency = false;
-
-        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails']['Currency'])) {
-            $mCurrency = $this->aResponseData['RequiredAction']['PayRemainderDetails']['Currency'];
-        }
-
-        return $mCurrency;
+        return $this->getPayRemainderDetail('Currency');
     }
 
     /**
@@ -246,13 +240,25 @@ class TransactionResponse
      */
     public function getRemainderGroupTransaction()
     {
-        $mGroupTransaction = false;
+        return $this->getPayRemainderDetail('GroupTransaction');
+    }
 
-        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails']['GroupTransaction'])) {
-            $mGroupTransaction = $this->aResponseData['RequiredAction']['PayRemainderDetails']['GroupTransaction'];
+    /**
+     * Get item out of the PayRemainderDetails array
+     *
+     * @param string $sDetailKey The key of the PayRemainderDetails item to retrieve
+     *
+     * @return bool
+     */
+    protected function getPayRemainderDetail($sDetailKey)
+    {
+        $mValue = false;
+
+        if ($this->hasToPayRemainder() && isset($this->aResponseData['RequiredAction']['PayRemainderDetails'][$sDetailKey])) {
+            $mValue = $this->aResponseData['RequiredAction']['PayRemainderDetails'][$sDetailKey];
         }
 
-        return $mGroupTransaction;
+        return $mValue;
     }
 
     /**
