@@ -128,8 +128,17 @@ class Foo
         $transaction->hasAdditionalParameter('name');
         // Remove an additional parameter
         $transaction->removeAdditionalParameter('name');
-        // has an additional parameter
+        // Has an additional parameter
         $transaction->hasAdditionalParameter('name');
+        
+        // Add a client header
+        $transaction->addClientHeader('Culture', 'nl-NL');
+        // Has a specific client header
+        $transaction->hasClientHeader('Culture'); // True
+        $transaction->hasClientHeader('SomeCustomHeader'); // False
+        // Retrieve a client header
+        $transaction->getClientHeader('Culture'); // nl-NL
+        $transaction->getClientHeader('SomeCustomHeader'); // null
         
         // Start the transaction
         $transactionResponse = $transaction->start();
