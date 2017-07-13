@@ -2,6 +2,8 @@
 
 This package will connect to the JSON API of Buckaroo, if you prefer SOAP over JSON use [this package](https://github.com/SeBuDesign/Buckaroo-PHP).
 
+[![Packagist](https://img.shields.io/packagist/dt/sebudesign/buckaroo-json.svg)]() [![Packagist](https://img.shields.io/packagist/v/sebudesign/buckaroo-json.svg)]() [![Code Climate](https://img.shields.io/codeclimate/github/SeBuDesign/Buckaroo-PHP-JSON.svg)]()
+
 ### Installation
 
 This package uses [Composer](https://getcomposer.org/) as PHP dependency manager, you need to run the following command within the root of your project.
