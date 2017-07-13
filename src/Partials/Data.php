@@ -55,7 +55,8 @@ trait Data
             if (is_object($mValue)) {
                 if (method_exists($this, "toString{$sName}Modifier")) {
                     $sBody[ $sName ] = $this->{"toString{$sName}Modifier"}();
-                } else {
+                }
+                if (!method_exists($this, "toString{$sName}Modifier")) {
                     $sBody[ $sName ] = json_decode((string) $mValue, true);
                 }
             }

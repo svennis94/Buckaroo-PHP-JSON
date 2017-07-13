@@ -248,7 +248,7 @@ class TransactionResponse
      *
      * @param string $sDetailKey The key of the PayRemainderDetails item to retrieve
      *
-     * @return bool
+     * @return mixed
      */
     protected function getPayRemainderDetail($sDetailKey)
     {
