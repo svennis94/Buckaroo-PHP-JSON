@@ -35,8 +35,8 @@ class RequestBase
      */
     protected $aRequestData = [
         'base_uri' => 'https://checkout.buckaroo.nl/json/',
-        'headers' => [
-            'Content-Type' => 'application/json'
+        'headers'  => [
+            'Content-Type' => 'application/json',
         ],
     ];
 
@@ -76,8 +76,10 @@ class RequestBase
     /**
      * Add a header to the Guzzle HTTP client
      *
-     * @param $sHeaderKey
-     * @param $sHeaderValue
+     * @param string $sHeaderKey   The name of the header
+     * @param string $sHeaderValue The value of the header
+     *
+     * @return $this
      */
     public function addClientHeader($sHeaderKey, $sHeaderValue)
     {
@@ -86,6 +88,15 @@ class RequestBase
         return $this;
     }
 
+    /**
+     * Generate the authorization header
+     *
+     * @param string $sContent A string of the content to post/put/patch
+     * @param string $sCall    The API call that will be called
+     * @param string $sMethod  The HTTP method used for the API call
+     *
+     * @return string
+     */
     protected function getAuthorizationHeader($sContent, $sCall, $sMethod)
     {
         if (!empty($sContent)) {
@@ -96,7 +107,8 @@ class RequestBase
 
         $iTime = time();
 
-        $sNonce = sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',
+        $sNonce = sprintf(
+            '%04x%04x%04x%04x%04x%04x%04x%04x',
 
             // 32 bits for "time_low"
             mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -137,8 +149,8 @@ class RequestBase
     /**
      * Performs a request to the Buckaroo JSON API
      *
-     * @param string $sCall The JSON call to perform
-     * @param string $sMethod The method to use
+     * @param string $sCall    The JSON call to perform
+     * @param string $sMethod  The method to use
      * @param array  $aOptions The request options
      *
      * @return array
