@@ -85,17 +85,12 @@ class TransactionStatus extends RequestBase
     {
         if (is_null($sTransactionKey)) {
             $aResponse = $this->performRequest('Transaction/Statuses', 'POST');
-            if (count($aResponse['Transactions']) === 1) {
-                $aReturn = new TransactionResponse(
-                    $aResponse['Transactions'][ 0 ]
+
+            $aReturn = [];
+            foreach ($aResponse['Transactions'] as $aTransactionData) {
+                $aReturn[] = new TransactionResponse(
+                    $aTransactionData
                 );
-            } else {
-                $aReturn = [];
-                foreach ($aResponse['Transactions'] as $aTransactionData) {
-                    $aReturn[] = new TransactionResponse(
-                        $aTransactionData
-                    );
-                }
             }
         } else {
             $aReturn = new TransactionResponse(

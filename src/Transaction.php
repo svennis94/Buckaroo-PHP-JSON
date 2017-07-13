@@ -254,7 +254,9 @@ class Transaction extends RequestBase
             $oCustomParameter = new CustomParameter();
             $oCustomParameter->setName($sName);
             $oCustomParameter->setValue($mValue);
-        } else {
+        }
+
+        if (!is_string($sName)) {
             $oCustomParameter = $sName;
             $sName = $oCustomParameter->getName();
         }
@@ -378,15 +380,15 @@ class Transaction extends RequestBase
      */
     public function toStringAdditionalParametersModifier()
     {
-        $aAdditionalParameters = [
+        $aParameters = [
             'AdditionalParameter' => []
         ];
 
         foreach ($this->oData->AdditionalParameters->AdditionalParameter as $oAdditionalParameter)
         {
-            $aAdditionalParameters['AdditionalParameter'][] = get_object_vars($oAdditionalParameter->oData);
+            $aParameters['AdditionalParameter'][] = get_object_vars($oAdditionalParameter->oData);
         }
 
-        return $aAdditionalParameters;
+        return $aParameters;
     }
 }
