@@ -235,6 +235,74 @@ class Foo
             $transactionResponse->getErrors()
         );
     }
+    
+    public function getTransactionStatuses()
+    {
+        $transactionStatus = new TransactionStatus('website-key', 'secret-key');
+        
+        $transactionStatus->addTransactionByKey('transaction-key');
+        $transactionStatus->addTransactionByInvoice('invoice');
+        
+        $transactionResponses = $transactionStatus->get();
+        
+        $transactionStatus = new TransactionStatus('website-key', 'secret-key');
+                    
+        $transactionStatus->addTransactionByKey('transaction-key');
+        $transactionStatus->addTransactionByKey('transaction-key');
+        
+        $transactionResponses = $transactionStatus->get();
+        
+        $transactionStatus = new TransactionStatus('website-key', 'secret-key');
+                    
+        $transactionStatus->addTransactionByKey('invoice');
+        $transactionStatus->addTransactionByKey('invoice');
+        
+        $transactionResponses = $transactionStatus->get();
+        
+        foreach ($transactionResponses as $transactionResponse) {
+            var_dump(
+                $transactionResponse->getTransactionKey(),
+                $transactionResponse->getOrder(),
+                $transactionResponse->getIssuingCountry(),
+                $transactionResponse->getInvoice(),
+                $transactionResponse->getServiceCode(),
+                $transactionResponse->getCurrency(),
+                $transactionResponse->getAmountDebit(),
+                $transactionResponse->getAmountCredit(),
+                $transactionResponse->getTransactionType(),
+                $transactionResponse->getMutationType(),
+                $transactionResponse->getRelatedTransactions(),
+                $transactionResponse->hasConsumerMessage(),
+                $transactionResponse->hasToReadConsumerMessage(),
+                $transactionResponse->getConsumerMessage(),
+                $transactionResponse->isTest(),
+                $transactionResponse->hasStartedRecurringPayment(),
+                $transactionResponse->isRecurringPayment(),
+                $transactionResponse->isCancelable(),
+                $transactionResponse->getCustomerName(),
+                $transactionResponse->getPayerHash(),
+                $transactionResponse->getPaymentKey(),
+                $transactionResponse->getStatusCode(),
+                $transactionResponse->getStatusSubCode(),
+                $transactionResponse->getDateTimeOfStatusChange(),
+                $transactionResponse->hasRequiredAction(),
+                $transactionResponse->getRequestedInformation(),
+                $transactionResponse->hasToRedirect(),
+                $transactionResponse->hasToPayRemainder(),
+                $transactionResponse->getRemainderAmount(),
+                $transactionResponse->getRemainderCurrency(),
+                $transactionResponse->getRemainderGroupTransaction(),
+                $transactionResponse->getRedirectUrl(),
+                $transactionResponse->getServices(),
+                $transactionResponse->getService('name'),
+                $transactionResponse->getServiceParameters('name'),
+                $transactionResponse->getCustomParameters(),
+                $transactionResponse->getAdditionalParameters(),
+                $transactionResponse->hasErrors(),
+                $transactionResponse->getErrors()
+            );
+        }
+    }
 }
 
 ```
