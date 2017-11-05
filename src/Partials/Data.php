@@ -1,7 +1,14 @@
 <?php namespace SeBuDesign\BuckarooJson\Partials;
 
+use stdClass;
+
 trait Data
 {
+    /**
+     * @var stdClass
+     */
+    public $oData;
+
     /**
      * Dynamically set and get values
      *
@@ -39,7 +46,7 @@ trait Data
     protected function ensureDataObject()
     {
         if (!isset($this->oData)) {
-            $this->oData = new \SeBuDesign\BuckarooJson\Parts\Data();
+            $this->oData = new stdClass();
         }
     }
 
