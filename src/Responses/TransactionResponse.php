@@ -67,6 +67,20 @@ class TransactionResponse
     }
 
     /**
+     * Get the current status code description
+     *
+     * @return bool|string
+     */
+    public function getStatusCodeDescription()
+    {
+        if ($this->hasStatusCode()) {
+            return $this->aResponseData['Status']['Code']['Description'];
+        }
+
+        return false;
+    }
+
+    /**
      * Get the current status code
      *
      * @return int
@@ -79,6 +93,20 @@ class TransactionResponse
         }
 
         return $iCode;
+    }
+
+    /**
+     * Get the current status code description
+     *
+     * @return bool|string
+     */
+    public function getStatusSubCodeDescription()
+    {
+        if ($this->hasStatusSubCode()) {
+            return $this->aResponseData['Status']['SubCode']['Description'];
+        }
+
+        return false;
     }
 
     /**
